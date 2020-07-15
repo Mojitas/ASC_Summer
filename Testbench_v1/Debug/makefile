@@ -40,8 +40,8 @@ Testbench_v1.bin \
 all: Testbench_v1.elf secondary-outputs
 
 # Tool invocations
-Testbench_v1.elf: $(OBJS) $(USER_OBJS) C:\Users\mstra\Documents\GitHub\ASC_Summer\Testbench_v1\STM32L476RGTX_FLASH.ld
-	arm-none-eabi-gcc -o "Testbench_v1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\mstra\Documents\GitHub\ASC_Summer\Testbench_v1\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Testbench_v1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Testbench_v1.elf: $(OBJS) $(USER_OBJS) /home/mdh/git_folder/ASC_Summer/Testbench_v1/STM32L476RGTX_FLASH.ld
+	arm-none-eabi-gcc -o "Testbench_v1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/mdh/git_folder/ASC_Summer/Testbench_v1/STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Testbench_v1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00026b53  00000000  00000000  00033248  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   0000ad3b  00000000  00000000  00059d9b  2**0
+ 17 .debug_line   0000ac47  00000000  00000000  00059d9b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000eca0a  00000000  00000000  00064ad6  2**0
+ 18 .debug_str    000ec9ff  00000000  00000000  000649e2  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  001514e0  2**0
+ 19 .comment      0000007b  00000000  00000000  001513e1  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003a04  00000000  00000000  0015155c  2**2
+ 20 .debug_frame  00003a04  00000000  00000000  0015145c  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -143,8 +143,8 @@ Disassembly of section .text:
  8000276:	bf08      	it	eq
  8000278:	2800      	cmpeq	r0, #0
  800027a:	bf1c      	itt	ne
- 800027c:	f04f 31ff 	movne.w	r1, #4294967295
- 8000280:	f04f 30ff 	movne.w	r0, #4294967295
+ 800027c:	f04f 31ff 	movne.w	r1, #4294967295	; 0xffffffff
+ 8000280:	f04f 30ff 	movne.w	r0, #4294967295	; 0xffffffff
  8000284:	f000 b972 	b.w	800056c <__aeabi_idiv0>
  8000288:	f1ad 0c08 	sub.w	ip, sp, #8
  800028c:	e96d ce04 	strd	ip, lr, [sp, #-16]!
@@ -182,7 +182,7 @@ Disassembly of section .text:
  80002e8:	4299      	cmp	r1, r3
  80002ea:	d909      	bls.n	8000300 <__udivmoddi4+0x60>
  80002ec:	18eb      	adds	r3, r5, r3
- 80002ee:	f107 30ff 	add.w	r0, r7, #4294967295
+ 80002ee:	f107 30ff 	add.w	r0, r7, #4294967295	; 0xffffffff
  80002f2:	f080 811b 	bcs.w	800052c <__udivmoddi4+0x28c>
  80002f6:	4299      	cmp	r1, r3
  80002f8:	f240 8118 	bls.w	800052c <__udivmoddi4+0x28c>
@@ -197,7 +197,7 @@ Disassembly of section .text:
  8000314:	45a4      	cmp	ip, r4
  8000316:	d909      	bls.n	800032c <__udivmoddi4+0x8c>
  8000318:	192c      	adds	r4, r5, r4
- 800031a:	f100 33ff 	add.w	r3, r0, #4294967295
+ 800031a:	f100 33ff 	add.w	r3, r0, #4294967295	; 0xffffffff
  800031e:	f080 8107 	bcs.w	8000530 <__udivmoddi4+0x290>
  8000322:	45a4      	cmp	ip, r4
  8000324:	f240 8104 	bls.w	8000530 <__udivmoddi4+0x290>
@@ -253,7 +253,7 @@ Disassembly of section .text:
  80003b0:	4299      	cmp	r1, r3
  80003b2:	d907      	bls.n	80003c4 <__udivmoddi4+0x124>
  80003b4:	18eb      	adds	r3, r5, r3
- 80003b6:	f10c 30ff 	add.w	r0, ip, #4294967295
+ 80003b6:	f10c 30ff 	add.w	r0, ip, #4294967295	; 0xffffffff
  80003ba:	d202      	bcs.n	80003c2 <__udivmoddi4+0x122>
  80003bc:	4299      	cmp	r1, r3
  80003be:	f200 80cd 	bhi.w	800055c <__udivmoddi4+0x2bc>
@@ -267,7 +267,7 @@ Disassembly of section .text:
  80003d8:	45a0      	cmp	r8, r4
  80003da:	d907      	bls.n	80003ec <__udivmoddi4+0x14c>
  80003dc:	192c      	adds	r4, r5, r4
- 80003de:	f100 33ff 	add.w	r3, r0, #4294967295
+ 80003de:	f100 33ff 	add.w	r3, r0, #4294967295	; 0xffffffff
  80003e2:	d202      	bcs.n	80003ea <__udivmoddi4+0x14a>
  80003e4:	45a0      	cmp	r8, r4
  80003e6:	f200 80b6 	bhi.w	8000556 <__udivmoddi4+0x2b6>
@@ -295,7 +295,7 @@ Disassembly of section .text:
  8000432:	fa00 f107 	lsl.w	r1, r0, r7
  8000436:	d90b      	bls.n	8000450 <__udivmoddi4+0x1b0>
  8000438:	eb1e 0303 	adds.w	r3, lr, r3
- 800043c:	f109 30ff 	add.w	r0, r9, #4294967295
+ 800043c:	f109 30ff 	add.w	r0, r9, #4294967295	; 0xffffffff
  8000440:	f080 8087 	bcs.w	8000552 <__udivmoddi4+0x2b2>
  8000444:	429c      	cmp	r4, r3
  8000446:	f240 8084 	bls.w	8000552 <__udivmoddi4+0x2b2>
@@ -310,7 +310,7 @@ Disassembly of section .text:
  8000464:	45a2      	cmp	sl, r4
  8000466:	d908      	bls.n	800047a <__udivmoddi4+0x1da>
  8000468:	eb1e 0404 	adds.w	r4, lr, r4
- 800046c:	f100 33ff 	add.w	r3, r0, #4294967295
+ 800046c:	f100 33ff 	add.w	r3, r0, #4294967295	; 0xffffffff
  8000470:	d26b      	bcs.n	800054a <__udivmoddi4+0x2aa>
  8000472:	45a2      	cmp	sl, r4
  8000474:	d969      	bls.n	800054a <__udivmoddi4+0x2aa>
@@ -352,7 +352,7 @@ Disassembly of section .text:
  80004e0:	fa04 f402 	lsl.w	r4, r4, r2
  80004e4:	d907      	bls.n	80004f6 <__udivmoddi4+0x256>
  80004e6:	1869      	adds	r1, r5, r1
- 80004e8:	f107 3cff 	add.w	ip, r7, #4294967295
+ 80004e8:	f107 3cff 	add.w	ip, r7, #4294967295	; 0xffffffff
  80004ec:	d22f      	bcs.n	800054e <__udivmoddi4+0x2ae>
  80004ee:	428b      	cmp	r3, r1
  80004f0:	d92d      	bls.n	800054e <__udivmoddi4+0x2ae>
@@ -367,7 +367,7 @@ Disassembly of section .text:
  800050a:	428b      	cmp	r3, r1
  800050c:	d907      	bls.n	800051e <__udivmoddi4+0x27e>
  800050e:	1869      	adds	r1, r5, r1
- 8000510:	f100 3cff 	add.w	ip, r0, #4294967295
+ 8000510:	f100 3cff 	add.w	ip, r0, #4294967295	; 0xffffffff
  8000514:	d217      	bcs.n	8000546 <__udivmoddi4+0x2a6>
  8000516:	428b      	cmp	r3, r1
  8000518:	d915      	bls.n	8000546 <__udivmoddi4+0x2a6>
@@ -750,7 +750,7 @@ int main(void)
   HAL_Delay(1000);
  800076c:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000770:	f000 fbec 	bl	8000f4c <HAL_Delay>
-  for(int i=3;i<=0;i--){
+  for(int i=3;i>=0;i--){
  8000774:	2303      	movs	r3, #3
  8000776:	607b      	str	r3, [r7, #4]
  8000778:	e012      	b.n	80007a0 <main+0x64>
@@ -758,7 +758,7 @@ int main(void)
  800077a:	2100      	movs	r1, #0
  800077c:	2001      	movs	r0, #1
  800077e:	f7ff ff6d 	bl	800065c <lcd_put_cur>
-	  sprintf(lcdMsg,"%d",i);
+	  sprintf(lcdMsg,"%d", i);
  8000782:	687a      	ldr	r2, [r7, #4]
  8000784:	490a      	ldr	r1, [pc, #40]	; (80007b0 <main+0x74>)
  8000786:	480b      	ldr	r0, [pc, #44]	; (80007b4 <main+0x78>)
@@ -769,13 +769,13 @@ int main(void)
 	  HAL_Delay(1000);
  8000792:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000796:	f000 fbd9 	bl	8000f4c <HAL_Delay>
-  for(int i=3;i<=0;i--){
+  for(int i=3;i>=0;i--){
  800079a:	687b      	ldr	r3, [r7, #4]
  800079c:	3b01      	subs	r3, #1
  800079e:	607b      	str	r3, [r7, #4]
  80007a0:	687b      	ldr	r3, [r7, #4]
  80007a2:	2b00      	cmp	r3, #0
- 80007a4:	dde9      	ble.n	800077a <main+0x3e>
+ 80007a4:	dae9      	bge.n	800077a <main+0x3e>
   }
   lcd_clear();
  80007a6:	f7ff ff43 	bl	8000630 <lcd_clear>
@@ -1864,35 +1864,20 @@ void CAN1_RX0_IRQHandler(void)
  8000d40:	2000017c 	.word	0x2000017c
 
 08000d44 <_sbrk>:
-/**
- _sbrk
- Increase program data space. Malloc and related functions depend on this
-**/
-caddr_t _sbrk(int incr)
-{
  8000d44:	b580      	push	{r7, lr}
  8000d46:	b084      	sub	sp, #16
  8000d48:	af00      	add	r7, sp, #0
  8000d4a:	6078      	str	r0, [r7, #4]
-	extern char end asm("end");
-	static char *heap_end;
-	char *prev_heap_end;
-
-	if (heap_end == 0)
  8000d4c:	4b11      	ldr	r3, [pc, #68]	; (8000d94 <_sbrk+0x50>)
  8000d4e:	681b      	ldr	r3, [r3, #0]
  8000d50:	2b00      	cmp	r3, #0
  8000d52:	d102      	bne.n	8000d5a <_sbrk+0x16>
-		heap_end = &end;
  8000d54:	4b0f      	ldr	r3, [pc, #60]	; (8000d94 <_sbrk+0x50>)
  8000d56:	4a10      	ldr	r2, [pc, #64]	; (8000d98 <_sbrk+0x54>)
  8000d58:	601a      	str	r2, [r3, #0]
-
-	prev_heap_end = heap_end;
  8000d5a:	4b0e      	ldr	r3, [pc, #56]	; (8000d94 <_sbrk+0x50>)
  8000d5c:	681b      	ldr	r3, [r3, #0]
  8000d5e:	60fb      	str	r3, [r7, #12]
-	if (heap_end + incr > stack_ptr)
  8000d60:	4b0c      	ldr	r3, [pc, #48]	; (8000d94 <_sbrk+0x50>)
  8000d62:	681a      	ldr	r2, [r3, #0]
  8000d64:	687b      	ldr	r3, [r7, #4]
@@ -1900,28 +1885,19 @@ caddr_t _sbrk(int incr)
  8000d68:	466a      	mov	r2, sp
  8000d6a:	4293      	cmp	r3, r2
  8000d6c:	d907      	bls.n	8000d7e <_sbrk+0x3a>
-	{
-		errno = ENOMEM;
  8000d6e:	f003 fab5 	bl	80042dc <__errno>
  8000d72:	4602      	mov	r2, r0
  8000d74:	230c      	movs	r3, #12
  8000d76:	6013      	str	r3, [r2, #0]
-		return (caddr_t) -1;
- 8000d78:	f04f 33ff 	mov.w	r3, #4294967295
+ 8000d78:	f04f 33ff 	mov.w	r3, #4294967295	; 0xffffffff
  8000d7c:	e006      	b.n	8000d8c <_sbrk+0x48>
-	}
-
-	heap_end += incr;
  8000d7e:	4b05      	ldr	r3, [pc, #20]	; (8000d94 <_sbrk+0x50>)
  8000d80:	681a      	ldr	r2, [r3, #0]
  8000d82:	687b      	ldr	r3, [r7, #4]
  8000d84:	4413      	add	r3, r2
  8000d86:	4a03      	ldr	r2, [pc, #12]	; (8000d94 <_sbrk+0x50>)
  8000d88:	6013      	str	r3, [r2, #0]
-
-	return (caddr_t) prev_heap_end;
  8000d8a:	68fb      	ldr	r3, [r7, #12]
-}
  8000d8c:	4618      	mov	r0, r3
  8000d8e:	3710      	adds	r7, #16
  8000d90:	46bd      	mov	sp, r7
@@ -2011,103 +1987,47 @@ void SystemInit(void)
  8000e04:	40021000 	.word	0x40021000
 
 08000e08 <Reset_Handler>:
-
-    .section	.text.Reset_Handler
-	.weak	Reset_Handler
-	.type	Reset_Handler, %function
-Reset_Handler:
-  ldr   sp, =_estack    /* Set stack pointer */
  8000e08:	f8df d034 	ldr.w	sp, [pc, #52]	; 8000e40 <LoopForever+0x2>
-
-/* Copy the data segment initializers from flash to SRAM */
-  movs	r1, #0
  8000e0c:	2100      	movs	r1, #0
-  b	LoopCopyDataInit
  8000e0e:	e003      	b.n	8000e18 <LoopCopyDataInit>
 
 08000e10 <CopyDataInit>:
-
-CopyDataInit:
-	ldr	r3, =_sidata
  8000e10:	4b0c      	ldr	r3, [pc, #48]	; (8000e44 <LoopForever+0x6>)
-	ldr	r3, [r3, r1]
  8000e12:	585b      	ldr	r3, [r3, r1]
-	str	r3, [r0, r1]
  8000e14:	5043      	str	r3, [r0, r1]
-	adds	r1, r1, #4
  8000e16:	3104      	adds	r1, #4
 
 08000e18 <LoopCopyDataInit>:
-
-LoopCopyDataInit:
-	ldr	r0, =_sdata
  8000e18:	480b      	ldr	r0, [pc, #44]	; (8000e48 <LoopForever+0xa>)
-	ldr	r3, =_edata
  8000e1a:	4b0c      	ldr	r3, [pc, #48]	; (8000e4c <LoopForever+0xe>)
-	adds	r2, r0, r1
  8000e1c:	1842      	adds	r2, r0, r1
-	cmp	r2, r3
  8000e1e:	429a      	cmp	r2, r3
-	bcc	CopyDataInit
  8000e20:	d3f6      	bcc.n	8000e10 <CopyDataInit>
-	ldr	r2, =_sbss
  8000e22:	4a0b      	ldr	r2, [pc, #44]	; (8000e50 <LoopForever+0x12>)
-	b	LoopFillZerobss
  8000e24:	e002      	b.n	8000e2c <LoopFillZerobss>
 
 08000e26 <FillZerobss>:
-/* Zero fill the bss segment. */
-FillZerobss:
-	movs	r3, #0
  8000e26:	2300      	movs	r3, #0
-	str	r3, [r2], #4
  8000e28:	f842 3b04 	str.w	r3, [r2], #4
 
 08000e2c <LoopFillZerobss>:
-
-LoopFillZerobss:
-	ldr	r3, = _ebss
  8000e2c:	4b09      	ldr	r3, [pc, #36]	; (8000e54 <LoopForever+0x16>)
-	cmp	r2, r3
  8000e2e:	429a      	cmp	r2, r3
-	bcc	FillZerobss
  8000e30:	d3f9      	bcc.n	8000e26 <FillZerobss>
-
-/* Call the clock system intitialization function.*/
-    bl  SystemInit
  8000e32:	f7ff ffb3 	bl	8000d9c <SystemInit>
-/* Call static constructors */
-    bl __libc_init_array
  8000e36:	f003 fa57 	bl	80042e8 <__libc_init_array>
-/* Call the application's entry point.*/
-	bl	main
  8000e3a:	f7ff fc7f 	bl	800073c <main>
 
 08000e3e <LoopForever>:
-
-LoopForever:
-    b LoopForever
  8000e3e:	e7fe      	b.n	8000e3e <LoopForever>
-  ldr   sp, =_estack    /* Set stack pointer */
  8000e40:	20018000 	.word	0x20018000
-	ldr	r3, =_sidata
  8000e44:	08004c30 	.word	0x08004c30
-	ldr	r0, =_sdata
  8000e48:	20000000 	.word	0x20000000
-	ldr	r3, =_edata
  8000e4c:	20000070 	.word	0x20000070
-	ldr	r2, =_sbss
  8000e50:	20000070 	.word	0x20000070
-	ldr	r3, = _ebss
  8000e54:	200001e4 	.word	0x200001e4
 
 08000e58 <ADC1_2_IRQHandler>:
- * @retval : None
-*/
-    .section	.text.Default_Handler,"ax",%progbits
-Default_Handler:
-Infinite_Loop:
-	b	Infinite_Loop
  8000e58:	e7fe      	b.n	8000e58 <ADC1_2_IRQHandler>
 	...
 
@@ -2217,7 +2137,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
         HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
  8000ed6:	2200      	movs	r2, #0
  8000ed8:	6879      	ldr	r1, [r7, #4]
- 8000eda:	f04f 30ff 	mov.w	r0, #4294967295
+ 8000eda:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  8000ede:	f000 fc56 	bl	800178e <HAL_NVIC_SetPriority>
         uwTickPrio = TickPriority;
  8000ee2:	4a0a      	ldr	r2, [pc, #40]	; (8000f0c <HAL_InitTick+0x70>)
@@ -2326,7 +2246,7 @@ __weak void HAL_Delay(uint32_t Delay)
   /* Add a period to guaranty minimum wait */
   if (wait < HAL_MAX_DELAY)
  8000f5e:	68fb      	ldr	r3, [r7, #12]
- 8000f60:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8000f60:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8000f64:	d004      	beq.n	8000f70 <HAL_Delay+0x24>
   {
     wait += (uint32_t)(uwTickFreq);
@@ -3901,7 +3821,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
 
   return (
            ((PreemptPriority & (uint32_t)((1UL << (PreemptPriorityBits)) - 1UL)) << SubPriorityBits) |
- 8001700:	f04f 32ff 	mov.w	r2, #4294967295
+ 8001700:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
  8001704:	69bb      	ldr	r3, [r7, #24]
  8001706:	fa02 f303 	lsl.w	r3, r2, r3
  800170a:	43da      	mvns	r2, r3
@@ -3910,7 +3830,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
  8001710:	697b      	ldr	r3, [r7, #20]
  8001712:	409a      	lsls	r2, r3
            ((SubPriority     & (uint32_t)((1UL << (SubPriorityBits    )) - 1UL)))
- 8001714:	f04f 31ff 	mov.w	r1, #4294967295
+ 8001714:	f04f 31ff 	mov.w	r1, #4294967295	; 0xffffffff
  8001718:	697b      	ldr	r3, [r7, #20]
  800171a:	fa01 f303 	lsl.w	r3, r1, r3
  800171e:	43d9      	mvns	r1, r3
@@ -3956,7 +3876,7 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
  8001750:	6053      	str	r3, [r2, #4]
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
  8001752:	210f      	movs	r1, #15
- 8001754:	f04f 30ff 	mov.w	r0, #4294967295
+ 8001754:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  8001758:	f7ff ff8e 	bl	8001678 <__NVIC_SetPriority>
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
  800175c:	4b05      	ldr	r3, [pc, #20]	; (8001774 <SysTick_Config+0x40>)
@@ -5259,7 +5179,7 @@ static HAL_StatusTypeDef I2C_WaitOnFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uin
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  8001ede:	683b      	ldr	r3, [r7, #0]
- 8001ee0:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8001ee0:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8001ee4:	d01e      	beq.n	8001f24 <I2C_WaitOnFlagUntilTimeout+0x58>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -5358,7 +5278,7 @@ static HAL_StatusTypeDef I2C_WaitOnTXISFlagUntilTimeout(I2C_HandleTypeDef *hi2c,
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  8001f6e:	68bb      	ldr	r3, [r7, #8]
- 8001f70:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8001f70:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8001f74:	d01e      	beq.n	8001fb4 <I2C_WaitOnTXISFlagUntilTimeout+0x68>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -5529,7 +5449,7 @@ static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c, uint32
       /* Check for the Timeout */
       if (Timeout != HAL_MAX_DELAY)
  8002060:	68bb      	ldr	r3, [r7, #8]
- 8002062:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 8002062:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  8002066:	d01e      	beq.n	80020a6 <I2C_IsAcknowledgeFailed+0x62>
       {
         if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -11410,7 +11330,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
  80041f8:	69bb      	ldr	r3, [r7, #24]
- 80041fa:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 80041fa:	f1b3 3fff 	cmp.w	r3, #4294967295	; 0xffffffff
  80041fe:	d059      	beq.n	80042b4 <UART_WaitOnFlagUntilTimeout+0xce>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
@@ -11671,7 +11591,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  80043cc:	89a3      	ldrh	r3, [r4, #12]
  80043ce:	f043 0340 	orr.w	r3, r3, #64	; 0x40
  80043d2:	81a3      	strh	r3, [r4, #12]
- 80043d4:	f04f 30ff 	mov.w	r0, #4294967295
+ 80043d4:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  80043d8:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  80043dc:	463a      	mov	r2, r7
  80043de:	6921      	ldr	r1, [r4, #16]
@@ -11731,7 +11651,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  8004456:	b928      	cbnz	r0, 8004464 <_svfiprintf_r+0x30>
  8004458:	230c      	movs	r3, #12
  800445a:	f8c8 3000 	str.w	r3, [r8]
- 800445e:	f04f 30ff 	mov.w	r0, #4294967295
+ 800445e:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  8004462:	e0c8      	b.n	80045f6 <_svfiprintf_r+0x1c2>
  8004464:	2340      	movs	r3, #64	; 0x40
  8004466:	6163      	str	r3, [r4, #20]
@@ -11765,7 +11685,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  80044ac:	2b00      	cmp	r3, #0
  80044ae:	f000 809d 	beq.w	80045ec <_svfiprintf_r+0x1b8>
  80044b2:	2300      	movs	r3, #0
- 80044b4:	f04f 32ff 	mov.w	r2, #4294967295
+ 80044b4:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
  80044b8:	e9cd 2305 	strd	r2, r3, [sp, #20]
  80044bc:	9304      	str	r3, [sp, #16]
  80044be:	9307      	str	r3, [sp, #28]
@@ -11833,7 +11753,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  800454a:	9203      	str	r2, [sp, #12]
  800454c:	2b00      	cmp	r3, #0
  800454e:	bfb8      	it	lt
- 8004550:	f04f 33ff 	movlt.w	r3, #4294967295
+ 8004550:	f04f 33ff 	movlt.w	r3, #4294967295	; 0xffffffff
  8004554:	3702      	adds	r7, #2
  8004556:	9305      	str	r3, [sp, #20]
  8004558:	4d2e      	ldr	r5, [pc, #184]	; (8004614 <_svfiprintf_r+0x1e0>)
@@ -11897,7 +11817,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  80045dc:	a904      	add	r1, sp, #16
  80045de:	4640      	mov	r0, r8
  80045e0:	f3af 8000 	nop.w
- 80045e4:	f1b0 3fff 	cmp.w	r0, #4294967295
+ 80045e4:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
  80045e8:	4681      	mov	r9, r0
  80045ea:	d1d6      	bne.n	800459a <_svfiprintf_r+0x166>
  80045ec:	89a3      	ldrh	r3, [r4, #12]
@@ -11995,7 +11915,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  80046d0:	47c0      	blx	r8
  80046d2:	3001      	adds	r0, #1
  80046d4:	d103      	bne.n	80046de <_printf_common+0xba>
- 80046d6:	f04f 30ff 	mov.w	r0, #4294967295
+ 80046d6:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  80046da:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  80046de:	3501      	adds	r5, #1
  80046e0:	e7c3      	b.n	800466a <_printf_common+0x46>
@@ -12135,7 +12055,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  8004816:	bfde      	ittt	le
  8004818:	2330      	movle	r3, #48	; 0x30
  800481a:	f805 3c01 	strble.w	r3, [r5, #-1]
- 800481e:	f105 35ff 	addle.w	r5, r5, #4294967295
+ 800481e:	f105 35ff 	addle.w	r5, r5, #4294967295	; 0xffffffff
  8004822:	ebac 0305 	sub.w	r3, ip, r5
  8004826:	6123      	str	r3, [r4, #16]
  8004828:	f8cd 8000 	str.w	r8, [sp]
@@ -12146,7 +12066,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
  8004834:	f7ff fef6 	bl	8004624 <_printf_common>
  8004838:	3001      	adds	r0, #1
  800483a:	d14d      	bne.n	80048d8 <_printf_i+0x1c8>
- 800483c:	f04f 30ff 	mov.w	r0, #4294967295
+ 800483c:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
  8004840:	b005      	add	sp, #20
  8004842:	e8bd 83f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, pc}
  8004846:	4839      	ldr	r0, [pc, #228]	; (800492c <_printf_i+0x21c>)

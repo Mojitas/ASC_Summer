@@ -55,9 +55,10 @@ UART_HandleTypeDef huart2;
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint32_t TxMailBox;
-uint8_t state, a, r, retVal, lcdMsg[16];
+uint8_t state, a, r, retVal;
 uint16_t OwnID 		= 0x123;
 uint16_t RemoteID 	= 0x124;
+char lcdMsg[16];
 
 /* USER CODE END PV */
 
@@ -120,7 +121,7 @@ int main(void)
   lcd_put_cur(0,0);
   lcd_send_string("***Init!***");
   HAL_Delay(1000);
-  for(int i=3;i<=0;i--){
+  for(int i=3;i>=0;i--){
 	  lcd_put_cur(1,0);
 	  sprintf(lcdMsg,"%d", i);
 	  lcd_send_string(lcdMsg);

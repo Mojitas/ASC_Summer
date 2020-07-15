@@ -2,8 +2,8 @@
 Summer project at mdh
 
 
-**add your files
+*add your files
 
-**pull from github
+*pull from github
 
-**push to github
+*push to github

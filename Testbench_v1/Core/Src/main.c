@@ -23,6 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "string.h"
+#include "stdio.h"
 
 /* USER CODE END Includes */
 
@@ -48,7 +50,14 @@ I2C_HandleTypeDef hi2c1;
 
 UART_HandleTypeDef huart2;
 
+
 /* USER CODE BEGIN PV */
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+uint32_t TxMailBox;
+uint8_t state, a, r, retVal, lcdMsg[16];
+uint16_t OwnID 		= 0x123;
+uint16_t RemoteID 	= 0x124;
 
 /* USER CODE END PV */
 
@@ -59,6 +68,14 @@ static void MX_USART2_UART_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_CAN1_Init(void);
 /* USER CODE BEGIN PFP */
+void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
+uint8_t serialMsg(char msg[]);
+void serialClear(void);
+void HAL_CAN_RxFifo0FullCallback(CAN_HandleTypeDef *hcan);
+void CAN_filterConfig(void);
+void CAN1_Tx(char msg[]);
+void CAN1_Rx(void);
 
 /* USER CODE END PFP */
 
@@ -102,6 +119,14 @@ int main(void)
   lcd_init();
   lcd_put_cur(0,0);
   lcd_send_string("***Init!***");
+  HAL_Delay(1000);
+  for(int i=3;i<=0;i--){
+	  lcd_put_cur(1,0);
+	  sprintf(lcdMsg,"%d", i);
+	  lcd_send_string(lcdMsg);
+	  HAL_Delay(1000);
+  }
+  lcd_clear();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -321,6 +346,82 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+uint8_t serialMsg(char msg[]){
+	if(strlen(msg)<50){
+		HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+		return 1;
+	}
+
+	else
+		return 0;
+}
+
+void serialClear(void){
+	serialMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+void HAL_CAN_RxFifo0FullCallback(CAN_HandleTypeDef *hcan){
+
+	if(hcan) return;
+}
+
+
+void CAN1_Tx(char msg[]){
+
+	if(strlen(msg)<9);
+
+	else
+		return;
+	TxHeader.DLC 	= 8;
+    TxHeader.IDE 	= CAN_ID_STD;
+	TxHeader.RTR 	= CAN_RTR_DATA;
+	TxHeader.StdId = OwnID;
+
+
+	if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg,  &TxMailBox) != HAL_OK) Error_Handler();
+
+
+	while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));
+	serialMsg("Message Transmitted\r\n");
+
+
+}
+
+void CAN1_Rx(void){
+
+	uint8_t crx[8];
+	RxHeader.DLC 	= 8;
+	RxHeader.IDE 	= CAN_ID_STD;
+	RxHeader.RTR 	= CAN_RTR_DATA;
+	RxHeader.StdId = RemoteID;
+
+	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, crx) != HAL_OK ){
+		Error_Handler();
+		return;
+	}
+		serialMsg((char*)crx);
+		lcd_put_cur(0,0);
+		lcd_send_string((char*)crx);
+}
+
+
+void CAN_filterConfig(void){ //Setting the filters
+
+	CAN_FilterTypeDef filterConfig;
+	filterConfig.FilterBank				= 0;
+	filterConfig.FilterActivation 		= ENABLE;
+	filterConfig.FilterFIFOAssignment 	= CAN_FILTER_FIFO0;
+	filterConfig.FilterIdHigh 			= 0x0000;
+	filterConfig.FilterIdLow 			= 0x0000;
+	filterConfig.FilterMaskIdHigh		= 0x0000;
+	filterConfig.FilterMaskIdLow 		= 0x0000;
+	filterConfig.FilterMode				= CAN_FILTERMODE_IDMASK;
+	filterConfig.FilterScale 			= CAN_FILTERSCALE_32BIT;
+
+
+	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
+
+}
 
 /* USER CODE END 4 */
 

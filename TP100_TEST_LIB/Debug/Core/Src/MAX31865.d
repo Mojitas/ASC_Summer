@@ -1,4 +1,4 @@
-Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/max31865.h \
+Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/MAX31865.h \
  ../Core/Inc/gpio.h ../Core/Inc/main.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
  ../Core/Inc/stm32l4xx_hal_conf.h \
@@ -24,6 +24,7 @@ Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/max31865.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_adc.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_adc_ex.h \
+ ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_can.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ramfunc.h \
@@ -37,7 +38,7 @@ Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/max31865.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h \
- ../Core/Inc/spi.h ../Core/Inc/max31865Conf.h \
+ ../Core/Inc/spi.h ../Core/Inc/MAX31865Conf.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -56,7 +57,7 @@ Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/max31865.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 
-../Core/Inc/max31865.h:
+../Core/Inc/MAX31865.h:
 
 ../Core/Inc/gpio.h:
 
@@ -110,6 +111,8 @@ Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/max31865.h \
 
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_adc_ex.h:
 
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_can.h:
+
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash.h:
 
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ex.h:
@@ -138,7 +141,7 @@ Core/Src/MAX31865.o: ../Core/Src/MAX31865.c ../Core/Inc/max31865.h \
 
 ../Core/Inc/spi.h:
 
-../Core/Inc/max31865Conf.h:
+../Core/Inc/MAX31865Conf.h:
 
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 

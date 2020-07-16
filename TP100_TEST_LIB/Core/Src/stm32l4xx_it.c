@@ -44,12 +44,17 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+uint8_t msg[8];
+extern CAN_TxHeaderTypeDef TxHeader;
+extern CAN_RxHeaderTypeDef RxHeader;
+extern uint32_t TxMailBox;
+extern uint8_t state, a, r, retval;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+extern void serialMsg(char msg[]);
+extern void CAN_Rx(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -185,7 +190,7 @@ void CAN1_RX0_IRQHandler(void)
   /* USER CODE END CAN1_RX0_IRQn 0 */
   HAL_CAN_IRQHandler(&hcan1);
   /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
-
+  CAN_Rx();
   /* USER CODE END CAN1_RX0_IRQn 1 */
 }
 

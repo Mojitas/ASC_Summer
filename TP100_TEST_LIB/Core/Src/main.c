@@ -30,7 +30,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Max31865.h"
+#include "MAX31865.h"
 #include <string.h>
 #include <stdio.h>
 #include "ADXL.h"
@@ -60,11 +60,24 @@
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
+void serialMsg(char msg[]);
+void serialClear(void);
+void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan);
+void CAN_filterConfig(void);
+void CAN_Tx(char msg[]);
+void CAN_Rx(void);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+CAN_HandleTypeDef hcan1;
+CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+uint32_t TxMailBox;
+uint8_t state, a, r, retval;
+uint16_t OwnID = 0x124, RemoteID = 0x123;
+
 Max31865_t  pt100;
 bool        pt100isOK;
 float       pt100Temp;
@@ -108,6 +121,9 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
+  CAN_filterConfig();
+  HAL_CAN_Start(&hcan1);
+  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -191,7 +207,68 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void serialMsg(char msg[]){
+	HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
 
+void serialClear(void){
+	serialMsg("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+void HAL_CAN_RxFifo0FullCallBack(CAN_HandleTypeDef *hcan){
+	if(hcan) return;
+}
+
+void CAN_Tx(char msg[]){
+
+	if(sizeof(*msg)<=8){
+		TxHeader.DLC = 8;
+		TxHeader.IDE = CAN_ID_STD;
+		TxHeader.RTR = CAN_RTR_DATA;
+		TxHeader.StdId = OwnID;
+
+		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) Error_Handler();
+
+		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));
+		serialMsg("Message transmitted!\n\r");
+	}
+	else return;
+}
+
+void CAN_Rx(void){
+
+	uint8_t crx[8];
+	RxHeader.DLC = 8;
+	RxHeader.IDE = CAN_ID_STD;
+	RxHeader.RTR = CAN_RTR_DATA;
+	RxHeader.StdId = RemoteID;
+
+	if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, crx) != HAL_OK){
+		Error_Handler();
+		return;
+	}
+	//delay(1);
+	serialMsg("Received message: ");
+	serialMsg((char*)crx);
+	serialMsg("\n\r");
+
+}
+
+
+void CAN_filterConfig(void){
+	CAN_FilterTypeDef filterConfig;
+	filterConfig.FilterBank = 0;
+	filterConfig.FilterActivation = ENABLE;
+	filterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+	filterConfig.FilterIdHigh = 0x0000;
+	filterConfig.FilterIdLow = 0x0000;
+	filterConfig.FilterMaskIdHigh = 0x0000;
+	filterConfig.FilterMaskIdLow = 0x0000;
+	filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+	filterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+
+	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
+}
 /* USER CODE END 4 */
 
  /**
@@ -223,7 +300,7 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-
+	serialMsg("Error happened!");
   /* USER CODE END Error_Handler_Debug */
 }
 

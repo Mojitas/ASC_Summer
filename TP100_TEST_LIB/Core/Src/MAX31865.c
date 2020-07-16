@@ -1,7 +1,7 @@
 
 #include <math.h>
-#include "max31865.h"
-#include "max31865Conf.h"
+#include "MAX31865.h"
+#include "MAX31865Conf.h"
 #if (_MAX31865_USE_FREERTOS == 1)
 #include "cmsis_os.h"
 #endif

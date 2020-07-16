@@ -31,7 +31,7 @@
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-#include "Max31865.h"
+#include "MAX31865.h"
 #include <string.h>
 #include <stdio.h>
 #include "adc.h"

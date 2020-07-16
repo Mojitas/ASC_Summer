@@ -1,0 +1,7 @@
+freertos.c:90:6:vApplicationGetIdleTaskMemory	24	static
+freertos.c:104:6:MX_FREERTOS_Init	104	static
+freertos.c:160:6:StartDefaultTask	16	static
+freertos.c:178:6:TP100_Test	88	static
+freertos.c:213:6:TBreakOut_Init	128	static
+freertos.c:260:6:ACC_Read_Init	48	static
+freertos.c:315:6:Vibration_Test_Init	80	static

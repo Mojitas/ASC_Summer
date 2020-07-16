@@ -136,13 +136,12 @@ void MX_FREERTOS_Init(void) {
   TBreakOutHandle = osThreadCreate(osThread(TBreakOut), NULL);
 
   /* definition and creation of ACC_Read */
-
- // osThreadDef(ACC_Read, ACC_Read_Init, osPriorityNormal, 0, 128);
-  //ACC_ReadHandle = osThreadCreate(osThread(ACC_Read), NULL);
+  osThreadDef(ACC_Read, ACC_Read_Init, osPriorityNormal, 0, 128);
+  ACC_ReadHandle = osThreadCreate(osThread(ACC_Read), NULL);
 
   /* definition and creation of Vibration_Test */
-  //osThreadDef(Vibration_Test, Vibration_Test_Init, osPriorityNormal, 0, 128);
-  //Vibration_TestHandle = osThreadCreate(osThread(Vibration_Test), NULL);
+  osThreadDef(Vibration_Test, Vibration_Test_Init, osPriorityNormal, 0, 128);
+  Vibration_TestHandle = osThreadCreate(osThread(Vibration_Test), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

@@ -213,7 +213,7 @@ void TBreakOut_Init(void const * argument)
 {
   /* USER CODE BEGIN TBreakOut_Init */
 	const double balance_resistance = 72600;
-	const double adc_res = 4096;
+	const double adc_res = 4095;
 	const double beta_value = 20564;
 	const double room_tempK = 294.15;
 	const double room_tempR = 70000;

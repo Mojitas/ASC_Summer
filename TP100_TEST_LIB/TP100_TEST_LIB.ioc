@@ -133,6 +133,7 @@ PB3\ (JTDO-TRACESWO).GPIOParameters=GPIO_Label
 PB3\ (JTDO-TRACESWO).GPIO_Label=SWO
 PB3\ (JTDO-TRACESWO).Locked=true
 PB3\ (JTDO-TRACESWO).Signal=SYS_JTDO-SWO
+PB8.Locked=true
 PB8.Mode=Master
 PB8.Signal=CAN1_RX
 PB9.Locked=true

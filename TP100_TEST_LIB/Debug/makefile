@@ -44,8 +44,8 @@ TP100_TEST_LIB.bin \
 all: TP100_TEST_LIB.elf secondary-outputs
 
 # Tool invocations
-TP100_TEST_LIB.elf: $(OBJS) $(USER_OBJS) /home/mdh/git_folder/ASC_Summer/TP100_TEST_LIB/STM32L476RGTX_FLASH.ld
-	arm-none-eabi-gcc -o "TP100_TEST_LIB.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/mdh/git_folder/ASC_Summer/TP100_TEST_LIB/STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TP100_TEST_LIB.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TP100_TEST_LIB.elf: $(OBJS) $(USER_OBJS) C:\Users\HubSt\OneDrive\Documents\GitHub\ASC_Summer\TP100_TEST_LIB\STM32L476RGTX_FLASH.ld
+	arm-none-eabi-gcc -o "TP100_TEST_LIB.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\HubSt\OneDrive\Documents\GitHub\ASC_Summer\TP100_TEST_LIB\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TP100_TEST_LIB.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

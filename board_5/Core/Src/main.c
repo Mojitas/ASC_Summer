@@ -22,6 +22,7 @@
 #include "main.h"
 #include "can.h"
 #include "i2c.h"
+#include "rtc.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -57,8 +58,10 @@ CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint32_t TxMailBox;
-uint8_t state, a, r, retval;
+char CanMsg[8];
+char comMsg[50];
 uint16_t OwnID = 0x123, RemoteID = 0x124;
+uint32_t startTime = 0, stopTime = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -110,6 +113,7 @@ int main(void)
   MX_CAN1_Init();
   MX_I2C1_Init();
   MX_TIM1_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
   serialClear();
   lcd_init();
@@ -129,11 +133,21 @@ int main(void)
   while (1)
   {
 
-	  if(HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == RESET){
-		  CAN_Tx("Hello!");
-		  HAL_Delay(250);
 
+	  if(HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET){
+		  serialMsg("Starting transmission!\r\n");
+		  startTime = uwTick;
+
+		  for(int i=0;i<1000;i++)
+		  {
+		  //sprintf(CanMsg,"%d",i);
+		  CAN_Tx(CanMsg);
+		  }
+		  stopTime = uwTick;
+		  sprintf(comMsg,"execute time: %lu ms\r\n",(stopTime-startTime));
+		  serialMsg(comMsg);
 	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -153,9 +167,10 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 1;
@@ -180,9 +195,11 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_USART2
+                              |RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -219,7 +236,7 @@ void CAN_Tx(char msg[]){
 		if(HAL_CAN_AddTxMessage(&hcan1, &TxHeader, (uint8_t*)msg, &TxMailBox) != HAL_OK) Error_Handler();
 
 		while(HAL_CAN_IsTxMessagePending(&hcan1, TxMailBox));
-		serialMsg("Message transmitted!\n\r");
+		//serialMsg("Message transmitted!\n\r");
 	}
 	else return;
 }
@@ -254,7 +271,7 @@ void CAN_filterConfig(void){
 	filterConfig.FilterMaskIdHigh = 0x0000;
 	filterConfig.FilterMaskIdLow = 0x0000;
 	filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
-	filterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+	filterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
 
 	HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
 }

@@ -40,8 +40,8 @@ board_5.bin \
 all: board_5.elf secondary-outputs
 
 # Tool invocations
-board_5.elf: $(OBJS) $(USER_OBJS) /home/mdh/STM32CubeIDE/workspace_1.3.0/board_5/STM32L476RGTX_FLASH.ld
-	arm-none-eabi-gcc -o "board_5.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/mdh/STM32CubeIDE/workspace_1.3.0/board_5/STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="board_5.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+board_5.elf: $(OBJS) $(USER_OBJS) /home/mdh/git_folder/ASC_Summer/board_5/STM32L476RGTX_FLASH.ld
+	arm-none-eabi-gcc -o "board_5.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/mdh/git_folder/ASC_Summer/board_5/STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="board_5.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -58,9 +58,9 @@ CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TxHeader;
 CAN_RxHeaderTypeDef RxHeader;
 uint32_t TxMailBox;
-char CanMsg[8];
+char CanMsg[8] ={"Mathias\0"};
 char comMsg[50];
-uint16_t OwnID = 0x123, RemoteID = 0x124;
+uint16_t OwnID = 0x124, RemoteID = 0x123;
 uint32_t startTime = 0, stopTime = 0;
 /* USER CODE END PV */
 
@@ -115,17 +115,19 @@ int main(void)
   MX_TIM1_Init();
   MX_RTC_Init();
   /* USER CODE BEGIN 2 */
-  serialClear();
+
+  serialClear();/*
   lcd_init();
   lcd_put_cur(0,0);
   lcd_send_string("***Init!***");
   serialMsg("***Init!***\n\r");
   HAL_Delay(1000);
   lcd_clear();
-
+*/
   CAN_filterConfig();
   HAL_CAN_Start(&hcan1);
   HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+  //CAN_Tx(CanMsg);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -134,19 +136,25 @@ int main(void)
   {
 
 
-	  if(HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET){
+	/*  if(HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET){
+
 		  serialMsg("Starting transmission!\r\n");
 		  startTime = uwTick;
 
 		  for(int i=0;i<1000;i++)
 		  {
-		  //sprintf(CanMsg,"%d",i);
 		  CAN_Tx(CanMsg);
 		  }
 		  stopTime = uwTick;
 		  sprintf(comMsg,"execute time: %lu ms\r\n",(stopTime-startTime));
 		  serialMsg(comMsg);
-	  }
+
+	  }*/
+
+
+
+
+
 
     /* USER CODE END WHILE */
 
@@ -254,9 +262,9 @@ void CAN_Rx(void){
 		return;
 	}
 	//delay(1);
-	serialMsg("Received message: ");
-	serialMsg((char*)crx);
-	serialMsg("\n\r");
+	//serialMsg("Received message: ");
+	//serialMsg((char*)crx);
+	//serialMsg("\n\r");
 
 }
 
@@ -278,7 +286,7 @@ void CAN_filterConfig(void){
 
 
 /* user delay function */
-void delay(uint16_t delay){
+void delay(uint16_t delay){ //one microsecond
 	__HAL_TIM_SET_COUNTER(&htim1,0);
 	while(__HAL_TIM_GET_COUNTER(&htim1)<delay);
 }

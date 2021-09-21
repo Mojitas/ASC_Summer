@@ -73,6 +73,7 @@ void CAN_filterConfig(void);
 void CAN_Tx(char msg[]);
 void CAN_Rx(void);
 void delay(uint16_t delay);
+void startMsg(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -115,23 +116,16 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  serialClear();
-  lcd_init();
-  lcd_put_cur(0,0);
-  serialMsg("***Init!***\r\n");
-  lcd_send_string("***Init!***");
-  HAL_Delay(1000);
-  serialClear();
-  lcd_clear();
-
+  //setup the CAN interface
   CAN_filterConfig();
   HAL_CAN_Start(&hcan1);
   HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-  //CAN_Tx(CanMsg);
+  CAN_Tx("init");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  startMsg();
   while (1)
   {
 

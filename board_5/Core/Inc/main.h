@@ -62,6 +62,14 @@ void Error_Handler(void);
 #define B1_GPIO_Port GPIOC
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define Brake_Pin GPIO_PIN_6
+#define Brake_GPIO_Port GPIOC
+#define Select_Pin GPIO_PIN_7
+#define Select_GPIO_Port GPIOC
+#define Battery_Pin GPIO_PIN_8
+#define Battery_GPIO_Port GPIOC
+#define DLR_Pin GPIO_PIN_9
+#define DLR_GPIO_Port GPIOC
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
